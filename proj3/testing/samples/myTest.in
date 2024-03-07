@@ -1,0 +1,54 @@
+# Checks that log works
+> init
+<<<
++ mine.txt wug.txt
++ yours.txt notwug.txt
+> add mine.txt
+<<<
+> add yours.txt
+<<<
+> commit "ok"
+<<<
+D HEADER "commit [a-f0-9]+"
+D DATE "Date: \w\w\w \w\w\w \d+ \d\d:\d\d:\d\d \d\d\d\d [-+]\d\d\d\d"
+> log
+===
+${HEADER}
+${DATE}
+ok
+
+===
+${HEADER}
+${DATE}
+initial commit
+
+<<<*
++ mine.txt notwug.txt
++ yours.txt wug.txt
+> add mine.txt
+<<<
+> add yours.txt
+<<<
+> commit "okk"
+<<<
+# Each ${HEADER} captures its commit UID.
+D UID "[a-f0-9]+"
+D HEADER "commit (${UID})"
+D DATE "Date: \w\w\w \w\w\w \d+ \d\d:\d\d:\d\d \d\d\d\d [-+]\d\d\d\d"
+> log
+===
+${HEADER}
+${DATE}
+okk
+
+===
+${HEADER}
+${DATE}
+ok
+
+===
+${HEADER}
+${DATE}
+initial commit
+
+<<<*

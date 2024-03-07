@@ -1,0 +1,46 @@
+# Tests whether the initial merge works
+I myTest.in
+> branch mySongs
+<<<
++ mine.txt hall.txt
+> add mine.txt
+<<<
+> commit "hall"
+<<<
+> checkout mySongs
+<<<
++ mine.txt roll.txt
+> add mine.txt
+<<<
+> commit "roll"
+<<<
+> log
+===
+${HEADER}
+${DATE}
+roll
+
+===
+${HEADER}
+${DATE}
+okk
+
+===
+${HEADER}
+${DATE}
+ok
+
+===
+${HEADER}
+${DATE}
+initial commit
+
+<<<*
+# UID of roll
+D UID_BRANCH "${1}"
+# UID of opposite versions
+D UID_SPLIT "${2}"
+> merge master
+Encountered merge conflict.
+<<<
+= mine.txt conflict.txt
